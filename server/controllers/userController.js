@@ -68,4 +68,22 @@ const clerkWebhooks = async (req, res) => {
 
 }
 
-export {clerkWebhooks}
+// API controller function to get user available credits data
+const userCredits = async (req, res) => {
+    try {
+        const {clerkId} = req.body 
+        const userData = await userModel.findOne({clerkId})
+        res.json({success:true, credits: userData.creditBalance})
+    } catch (error) {
+        console.log(error.message);
+        res.json({success: false, message: error.message})
+    }
+}
+
+// API to makepayment for credits
+const paymentRazorpay = async (req, res) => {
+    res.status(501).json({ success: false, message: "Purchase is unavailable in demo" });
+  };
+  
+
+export {clerkWebhooks, userCredits, paymentRazorpay}
